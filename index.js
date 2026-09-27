@@ -9,13 +9,13 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/politcraft";
+const MONGO_URI = process.env.MONGO_URI;
 const JWT_SECRET = process.env.JWT_SECRET || "super_secret_jwt_key";
 
 // ==========================================
 // 1. MIDDLEWARES
 // ==========================================
-app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json({ limit: "10mb" }));
 
 
@@ -195,11 +195,11 @@ app.delete("/api/posters/:id", authenticateToken, async (req, res) => {
 mongoose
   .connect(MONGO_URI)
   .then(() => {
-    console.log("✅ MongoDB Connected Successfully");
+    console.log("MongoDB Connected Successfully");
     app.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
+      console.log(`Server running on http://localhost:${PORT}`);
     });
   })
   .catch((err) => {
-    console.error("❌ MongoDB Connection Error:", err);
+    console.error(" MongoDB Connection Error:", err);
   });
